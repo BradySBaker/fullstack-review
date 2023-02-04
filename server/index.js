@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const github = require('../helpers/github');
+const getTopRepos = require('../helpers/repoSorter');
 let app = express();
 
 // TODO - your code here!
@@ -14,14 +15,25 @@ app.use(cors(({
 app.use(express.json());
 
 app.post('/repos', function (req, res) {
-  github.getReposByUsername(req.body.username);
-  res.statusCode = 200;
+  if (req.body.username) {
+    github.getReposByUsername(req.body.username);
+    res.statusCode = 201;
+  } else {
+    res.statusCode = 404;
+  }
   res.end();
 });
 
 app.get('/repos', function (req, res) {
-  // TODO - your code here!
-  // This route should send back the top 25 repos
+  getTopRepos((err, topRepos) => {
+    if (err) {
+      res.statusCode = 500;
+      res.end();
+    } else {
+      res.statusCode = 200;
+      res.send(JSON.stringify(topRepos));
+    }
+  });
 });
 
 let port = 1128;

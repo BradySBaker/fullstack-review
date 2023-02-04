@@ -41,9 +41,9 @@ let find = (repoInfo, cb) => {
   })
 };
 
-find({username: 'BradySBaker'}, (err, repoInfo) => {
-  console.log(repoInfo)
-});
+// find({username: 'BradySBaker'}, (err, repoInfo) => {
+//   console.log(repoInfo)
+// });
 
 module.exports.save = save;
 module.exports.find = find;

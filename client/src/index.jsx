@@ -8,6 +8,21 @@ const App = () => {
 
   const [repos, setRepos] = useState([]);
 
+  const fetch = (successCB) => {
+    $.ajax({
+      type: "GET",
+      url: "http://localhost:1128/repos",
+      dataType: "json",
+      success: (data) => successCB(data),
+      error: (err) => console.log(err)
+    });
+  }
+  const update = (data) => {
+    console.log(data);
+  }
+
+  fetch(update);
+
   const search = (term) => {
     console.log(`${term} was searched`);
     $.ajax({
