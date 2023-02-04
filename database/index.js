@@ -24,4 +24,26 @@ let save = (username, repoInfo) => {
   });
 }
 
+let find = (repoInfo, cb) => {
+  var options = {}
+  if (repoInfo.username) {
+    options.user_name = repoInfo.username;
+  }
+  if (repoInfo.id) {
+    options.repo_id = repoInfo.id;
+  }
+  Repo.find(options, (err, repos) => {
+    if (err) {
+      cb(err, null);
+    } else {
+      cb(null, repos);
+    }
+  })
+};
+
+find({username: 'BradySBaker'}, (err, repoInfo) => {
+  console.log(repoInfo)
+});
+
 module.exports.save = save;
+module.exports.find = find;

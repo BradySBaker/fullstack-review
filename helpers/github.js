@@ -8,7 +8,6 @@ let getReposByUsername = (username) => {
 
   // The options object has been provided to help you out,
   // but you'll have to fill in the URL
-  console.log(username);
   let options = {
     url: `https://api.github.com/users/${username}/repos`,
     headers: {
@@ -24,8 +23,18 @@ let getReposByUsername = (username) => {
       repoInfo.name = curRepo.name;
       repoInfo.url = curRepo.url;
       repoInfo.watchers = curRepo.watchers;
-      database.save(username, repoInfo);
-      console.log(repoInfo);
+
+      database.find({username: username, id: repoInfo.id}, (err, repo) => {
+        if (err) {
+          console.log(err);
+          return;
+        }
+        if (repo.length === 0) {
+          database.save(username, repoInfo);
+        } else {
+          console.log(repoInfo.name, ' already in database!');
+        }
+      })
     });
   });
 
