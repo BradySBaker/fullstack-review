@@ -9,9 +9,9 @@ watchers
 
 const Repo = ({ repo }) => (
   <div className="repos">
-    <div className="repo_names">
+    <a target="_blank" href={repo.repo_url} className="repo_names">
       Repo: {repo.repo_name}
-      </div>
+      </a>
       <ul>
         <li>username: {repo.user_name}</li>
         <a target="_blank" href={repo.repo_url}>url: {repo.repo_url}</a>

@@ -13,7 +13,9 @@ body {
 
 .repos {
   position: relative;
-  width: 500px;
+  padding-left: 10px;
+  padding-top: 5px;
+  width: 700px;
   margin-top: 10px;
   color: #CA6702;
   border: 2px solid #E9D8A6;
@@ -24,4 +26,19 @@ body {
   font-weight: bold;
   font-size: 25px;
   color: #94D2BD;
+  text-decoration: none;
+}
+
+.repo_names:hover {
+  color:#001219;
+  cursor: pointer;
+  user-select: none;
+}
+
+a {
+  color: black
+}
+
+a:hover {
+  color: blue
 }
