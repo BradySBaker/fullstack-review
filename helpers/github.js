@@ -22,7 +22,7 @@ let getReposByUsername = (username) => {
       var repoInfo = {};
       repoInfo.id = curRepo.id;
       repoInfo.name = curRepo.name;
-      repoInfo.url = curRepo.url;
+      repoInfo.url = curRepo.html_url;
       repoInfo.watchers = curRepo.watchers;
 
       database.find({username: username, id: repoInfo.id}, (err, repo) => {
@@ -38,7 +38,6 @@ let getReposByUsername = (username) => {
       })
     });
   });
-
 }
 
 module.exports.getReposByUsername = getReposByUsername;

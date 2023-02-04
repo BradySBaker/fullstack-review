@@ -1,0 +1,27 @@
+body {
+  background-color: #001219;
+  color: #E9D8A6;
+  font-size: 20px;
+}
+
+.repo_list {
+  margin-top: 10px;
+  background-color: #002B3D;
+  padding: 5px 0px 10px 15px;
+  border-radius: 50px;
+}
+
+.repos {
+  position: relative;
+  width: 500px;
+  margin-top: 10px;
+  color: #CA6702;
+  border: 2px solid #E9D8A6;
+  border-radius: 10px;
+}
+
+.repo_names {
+  font-weight: bold;
+  font-size: 25px;
+  color: #94D2BD;
+}

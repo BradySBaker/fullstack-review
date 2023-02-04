@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import $ from 'jquery';
 import Search from './components/Search.jsx';
@@ -7,6 +7,9 @@ import RepoList from './components/RepoList.jsx';
 const App = () => {
 
   const [repos, setRepos] = useState([]);
+  const update = (data) => {
+    setRepos(data);
+  }
 
   const fetch = (successCB) => {
     $.ajax({
@@ -17,11 +20,10 @@ const App = () => {
       error: (err) => console.log(err)
     });
   }
-  const update = (data) => {
-    console.log(data);
-  }
 
-  fetch(update);
+  //Run once on startup
+  useEffect(() => fetch(update),[]);
+
 
   const search = (term) => {
     console.log(`${term} was searched`);
@@ -38,8 +40,8 @@ const App = () => {
   return (
     <div>
       <h1>Github Fetcher</h1>
-      <RepoList repos={repos}/>
       <Search onSearch={search}/>
+      <RepoList repos={repos}/>
     </div>
   );
 }
