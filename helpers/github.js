@@ -38,6 +38,7 @@ let getReposByUsername = (username, cb) => {
     }
 
     var repos = req.data;
+    console.log(repos);
     var ammountSaved = 0;
     repos.forEach((curRepo, idx) => {
       var repoInfo = {};
