@@ -8,6 +8,7 @@ let app = express();
 // Set up static file service for files in the `client/dist` directory.
 // Webpack is configured to generate files in that directory and
 // this server must serve those files when requested.
+//
 app.use(cors(({
   "Access-Control-Allow-Origin": 'http://localhost:3000/'
 })));
