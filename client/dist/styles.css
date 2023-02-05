@@ -7,7 +7,7 @@ body {
 .repo_list {
   margin-top: 10px;
   background-color: #002B3D;
-  padding: 5px 0px 10px 15px;
+  padding: 5px 0px 20px 15px;
   border-radius: 50px;
 }
 
@@ -41,4 +41,16 @@ a {
 
 a:hover {
   color: blue
+}
+
+.loading {
+  float: right;
+  margin-right: 100px;
+  margin-top: 40px;
+  width: 50px;
+}
+
+.clear {
+  margin-right: 50%;
+  float: right;
 }

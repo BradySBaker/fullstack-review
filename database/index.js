@@ -11,7 +11,7 @@ let repoSchema = mongoose.Schema({
 
 let Repo = mongoose.model('Repo', repoSchema);
 
-let save = (username, repoInfo) => {
+let save = (username, repoInfo, cb) => {
   var repo = new Repo({
     repo_id: repoInfo.id,
     repo_name: repoInfo.name,
@@ -20,7 +20,12 @@ let save = (username, repoInfo) => {
     watchers: repoInfo.watchers
   });
   repo.save(function(err, newRepo) {
-    console.log(newRepo.repo_name + " info saved to database");
+    if (err) {
+      cb(err);
+    } else {
+      console.log(newRepo.repo_name + " info saved to database");
+      cb(null);
+    }
   });
 }
 
@@ -41,9 +46,19 @@ let find = (repoInfo, cb) => {
   })
 };
 
-// find({}, (err, repoInfo) => {
-//   Repo.collection.deleteMany({});
-//    console.log(repoInfo)
-// });
+
+let deleteAllRepos = (cb) => {
+  Repo.collection.deleteMany({}, (err) => {
+    if (err) {
+      cb(err);
+      return;
+    } else {
+      cb(null);
+    }
+  });
+}
+
+
+module.exports.deleteAllRepos = deleteAllRepos;
 module.exports.save = save;
 module.exports.find = find;

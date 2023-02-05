@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const github = require('../helpers/github');
-const getTopRepos = require('../helpers/repoSorter');
+const sort = require('../helpers/repoSorter');
 let app = express();
 
 // TODO - your code here!
@@ -16,25 +16,45 @@ app.use(express.json());
 
 app.post('/repos', function (req, res) {
   if (req.body.username) {
-    github.getReposByUsername(req.body.username);
-    res.statusCode = 201;
+    github.getReposByUsername(req.body.username, (err) => {
+      if (err) {
+        res.statusCode = 404;
+        res.end();
+      } else {
+        res.statusCode = 201;
+        res.send(req.body);
+      }
+    });
   } else {
     res.statusCode = 404;
+    res.end();
   }
-  res.end();
 });
 
 app.get('/repos', function (req, res) {
-  getTopRepos((err, topRepos) => {
+  sort.getTopRepos((err, topRepos) => {
     if (err) {
       res.statusCode = 500;
       res.end();
     } else {
       res.statusCode = 200;
-      res.send(JSON.stringify(topRepos));
+      console.log(sort.sortTopRepos(topRepos));
+      res.send(JSON.stringify(sort.sortTopRepos(topRepos)));
     }
   });
 });
+
+app.delete('/repos', function(req, res) {
+  github.deleteRepos((err) => {
+    if (err) {
+      res.statusCode = 404;
+      res.end();
+    } else {
+      res.statusCode = 204;
+      res.end();
+    }
+  });
+})
 
 let port = 1128;
 

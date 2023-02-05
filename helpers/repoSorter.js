@@ -23,11 +23,6 @@ let getTopRepos = (cb) => {
       //Loop through all repos in database
       repos.forEach((curRepo, curIdx) => {
         //If topRepos not full yet
-        if (!watchObj[curRepo.watchers]) {
-          watchObj[curRepo.watchers] = 1;
-        } else {
-          watchObj[curRepo.watchers]++;
-        }
         if (topRepos.length < 25) {
           topRepos.push(curRepo);
         } else {
@@ -42,4 +37,23 @@ let getTopRepos = (cb) => {
   });
 }
 
-module.exports = getTopRepos;
+let sortTopRepos = (repos, result = [], ammount = 0, ignore = {}) => {
+  if (ammount === repos.length) {
+    return result;
+  }
+  var highestIdx = null;
+  repos.forEach((curRepo, idx) => {
+    if (!ignore[idx]) {
+      if (highestIdx === null || curRepo.watchers > repos[highestIdx].watchers) {
+        highestIdx = idx;
+      }
+    }
+  });
+  ignore[highestIdx] = 1;
+  result.push(repos[highestIdx]);
+  result = sortTopRepos(repos, result, ammount + 1, ignore);
+  return result;
+}
+
+module.exports.getTopRepos = getTopRepos;
+module.exports.sortTopRepos = sortTopRepos;
