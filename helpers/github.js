@@ -29,6 +29,11 @@ let getReposByUsername = (username, cb) => {
   };
   axios.get(options.url, options).then(req => {
     var repos = req.data;
+    console.log(repos);
+    if (repos.length === 0) {
+      cb(null);
+      return;
+    }
     var ammountSaved = 0;
     repos.forEach((curRepo, idx) => {
       var repoInfo = {};
