@@ -16,19 +16,19 @@ app.use(cors(({
 app.use(express.json());
 
 app.post('/repos', function (req, res) {
-  if (req.body.username) {
+  if (req.body.username.length > 0) {
     github.getReposByUsername(req.body.username, (err) => {
       if (err) {
-        res.statusCode = 404;
-        res.end();
+        res.statusCode = 200;
+        res.send({error: 'No user found!'});
       } else {
         res.statusCode = 201;
         res.send(req.body);
       }
     });
   } else {
-    res.statusCode = 404;
-    res.end();
+    res.statusCode = 200;
+    res.send({error: 'No user given'});
   }
 });
 
@@ -39,7 +39,6 @@ app.get('/repos', function (req, res) {
       res.end();
     } else {
       res.statusCode = 200;
-      console.log(sort.sortTopRepos(topRepos));
       res.send(JSON.stringify(sort.sortTopRepos(topRepos)));
     }
   });
